@@ -1,0 +1,73 @@
+body{
+    margin:0;
+    font-family: "Segoe UI", sans-serif;
+    background:#f6f0fb;
+    color:#5c4a72;
+}
+
+/* HEADER */
+
+header{
+    text-align:center;
+    padding:40px;
+    font-size:28px;
+}
+
+/* MAIN */
+
+main{
+    max-width:800px;
+    margin:auto;
+    padding:40px;
+    text-align:center;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+    font-size:14px;
+    opacity:0.7;
+}
+
+/* make page scroll */
+
+.space{
+    height:1200px;
+}
+
+/* CORNER FLOWERS */
+
+.corner{
+    position:fixed;
+    width:260px;
+    pointer-events:none;
+}
+
+/* top left */
+.top-left{
+    top:0;
+    left:0;
+}
+
+/* top right */
+.top-right{
+    top:0;
+    right:0;
+    transform:scaleX(-1);
+}
+
+/* bottom left */
+.bottom-left{
+    bottom:0;
+    left:0;
+    transform:scaleY(-1);
+}
+
+/* bottom right */
+.bottom-right{
+    bottom:0;
+    right:0;
+    transform:scale(-1,-1);
+}
