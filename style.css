@@ -49,25 +49,26 @@ footer{
 .top-left{
     top:0;
     left:0;
+    transform:scaleY(-1);
 }
 
 /* top right */
 .top-right{
     top:0;
     right:0;
-    transform:scaleX(-1);
+    transform: rotate(-180deg);
+    
 }
 
 /* bottom left */
 .bottom-left{
     bottom:0;
     left:0;
-    transform:scaleY(-1);
 }
 
 /* bottom right */
 .bottom-right{
     bottom:0;
     right:0;
-    transform:scale(-1,-1);
+    transform: rotate(-90deg);
 }
