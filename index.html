@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GALLERY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-left">
+      <span class="header-label">ARCHIVE</span>
+    </div>
+    <div class="header-center">
+      <h1 class="site-title">GALLERY</h1>
+    </div>
+    <div class="header-right">
+      <span class="header-label" id="folder-count">— / —</span>
+    </div>
+  </header>
+
+  <!-- MASONRY GRID -->
+  <main class="masonry-container" id="masonry-container">
+    <!-- Folders injected by JS -->
+  </main>
+
+  <!-- SLIDESHOW OVERLAY -->
+  <div class="slideshow-overlay" id="slideshow-overlay" aria-hidden="true">
+    <div class="slideshow-hud">
+      <button class="back-btn" id="back-btn" aria-label="Close slideshow">
+        <span class="back-arrow">←</span>
+        <span class="back-text">BACK</span>
+      </button>
+      <div class="slideshow-meta">
+        <span class="folder-name" id="slide-folder-name"></span>
+        <span class="slide-counter" id="slide-counter">01 / 01</span>
+      </div>
+      <div class="slideshow-controls-right">
+        <button class="control-btn" id="auto-btn" title="Auto play">▶</button>
+      </div>
+    </div>
+
+    <!-- Scan line effect -->
+    <div class="scanlines"></div>
+
+    <!-- Main image stage -->
+    <div class="slide-stage" id="slide-stage">
+      <div class="slide-frame">
+        <img class="slide-img" id="slide-img" src="" alt="" />
+        <div class="slide-glitch" id="slide-glitch"></div>
+      </div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="thumb-strip-wrapper">
+      <div class="thumb-strip" id="thumb-strip"></div>
+    </div>
+
+    <!-- Nav arrows -->
+    <button class="nav-arrow nav-prev" id="nav-prev" aria-label="Previous">&#8592;</button>
+    <button class="nav-arrow nav-next" id="nav-next" aria-label="Next">&#8594;</button>
+  </div>
+
+  <script src="js/gallery.js"></script>
+</body>
+</html>
