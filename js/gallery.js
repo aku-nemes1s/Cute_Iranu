@@ -57,11 +57,12 @@
   }
 
   async function loadFolder(name) {
-    try {
+        try {
       const manifest = await fetchJSON(`images/${name}/manifest.json`);
       const images = (manifest.images || []).map(f => `images/${name}/${f}`);
       return {
         name,
+        title: manifest.title || name,
         cover: images[0] || null,
         images,
       };
