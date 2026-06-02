@@ -57,7 +57,7 @@
   }
 
   async function loadFolder(name) {
-        try {
+    try {
       const manifest = await fetchJSON(`images/${name}/manifest.json`);
       const images = (manifest.images || []).map(f => `images/${name}/${f}`);
       return {
@@ -104,14 +104,14 @@
         ph.className = 'folder-placeholder';
         ph.innerHTML = `
           <span class="folder-placeholder-icon">◻</span>
-          <span class="folder-placeholder-name">${folder.name.toUpperCase()}</span>`;
+          <span class="folder-placeholder-name">${folder.title.toUpperCase()}</span>`;
         card.appendChild(ph);
       }
 
       const ov = document.createElement('div');
       ov.className = 'folder-overlay';
       ov.innerHTML = `
-        <span class="folder-name">${folder.name.toUpperCase()}</span>
+        <span class="folder-name">${folder.title.toUpperCase()}</span>
         <span class="folder-count-label">${folder.images.length} photographs</span>`;
       card.appendChild(ov);
 
@@ -129,7 +129,7 @@
     currentFolder = folder;
     currentIndex = 0;
 
-    folderLabel.textContent = folder.name.toUpperCase();
+    folderLabel.textContent = folder.title.toUpperCase();
     buildThumbs(folder.images);
     loadSlide(0, 'none');
 
