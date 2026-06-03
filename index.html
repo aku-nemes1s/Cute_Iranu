@@ -7,12 +7,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/background.css" />
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════
        TOP HEADER BAR — Music Player + Title
   ═══════════════════════════════════════ -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div id="bg-glass" aria-hidden="true"></div>
+  <div id="bg-vignette" aria-hidden="true"></div>
+
   <header class="top-bar">
     <div class="top-bar-left">
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -37,7 +42,7 @@
         <svg class="vol-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
         </svg>
-        <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.01" value="0.4" aria-label="Volume">
+        <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
       </div>
       <audio id="bg-audio" loop></audio>
     </div>
@@ -462,6 +467,7 @@
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <script src="js/gallery.js"></script>
+  <script src="js/background.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
