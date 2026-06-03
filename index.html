@@ -3,68 +3,465 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Т-Н-Т</title>
+  <title>ARCHIVE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="header-left">
-      <span class="header-label">Зураг</span>
+  <!-- ═══════════════════════════════════════
+       TOP HEADER BAR — Music Player + Title
+  ═══════════════════════════════════════ -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="site-wordmark">ARCHIVE</span>
     </div>
-    <div class="header-center">
-      <h1 class="site-title">Т-Н-Т</h1>
+
+    <!-- Music Player -->
+    <div class="music-player" id="music-player">
+      <button class="music-btn" id="music-toggle" aria-label="Play/Pause">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="music-info">
+        <span class="music-track" id="music-track">— select a track —</span>
+        <div class="music-progress-bar">
+          <div class="music-progress-fill" id="music-progress-fill"></div>
+        </div>
+      </div>
+      <div class="volume-control">
+        <svg class="vol-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+        <input type="range" class="vol-slider" id="vol-slider" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
+      </div>
+      <audio id="bg-audio" loop></audio>
     </div>
-    <div class="header-right">
-      <span class="header-label" id="folder-count">— / —</span>
+
+    <div class="top-bar-right">
+      <span class="clock" id="clock"></span>
     </div>
   </header>
 
-  <!-- MASONRY GRID -->
-  <main class="masonry-container" id="masonry-container">
-    <!-- Folders injected by JS -->
-  </main>
+  <!-- ═══════════════════════════════════════
+       LAYOUT WRAPPER
+  ═══════════════════════════════════════ -->
+  <div class="layout">
 
-  <!-- SLIDESHOW OVERLAY -->
+    <!-- LEFT SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sidebar-logo">
+          <div class="logo-mark">✦</div>
+          <div class="logo-text">
+            <span class="logo-title">ARCHIVE</span>
+            <span class="logo-sub">Personal Journal</span>
+          </div>
+        </div>
+
+        <ul class="nav-list">
+          <li><a href="#" class="nav-item active" data-page="photos">
+            <span class="nav-icon">⬡</span>
+            <span class="nav-label">Photos</span>
+            <span class="nav-desc">Gallery</span>
+          </a></li>
+          <li><a href="#" class="nav-item" data-page="memory">
+            <span class="nav-icon">◈</span>
+            <span class="nav-label">Memory</span>
+            <span class="nav-desc">Fragments</span>
+          </a></li>
+          <li><a href="#" class="nav-item" data-page="trip">
+            <span class="nav-icon">◎</span>
+            <span class="nav-label">Trip</span>
+            <span class="nav-desc">Journeys</span>
+          </a></li>
+          <li><a href="#" class="nav-item" data-page="dreams">
+            <span class="nav-icon">◇</span>
+            <span class="nav-label">Dreams</span>
+            <span class="nav-desc">Visions</span>
+          </a></li>
+          <li><a href="#" class="nav-item" data-page="about">
+            <span class="nav-icon">○</span>
+            <span class="nav-label">About</span>
+            <span class="nav-desc">This place</span>
+          </a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-line"></div>
+          <span class="sidebar-year">© 2025</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="main-content">
+
+      <!-- PAGE: PHOTOS -->
+      <section class="page active" id="page-photos">
+        <div class="page-header">
+          <span class="page-eyebrow">Collection</span>
+          <h2 class="page-title">Photos</h2>
+        </div>
+        <div class="masonry-container" id="masonry-container">
+          <div class="loading-state">
+            <div class="loading-dots"><span></span><span></span><span></span></div>
+            <span class="loading-text">LOADING</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: MEMORY -->
+      <section class="page" id="page-memory">
+        <div class="page-header">
+          <span class="page-eyebrow">Archive</span>
+          <h2 class="page-title">Memory</h2>
+        </div>
+        <div class="editorial-content">
+          <div class="editorial-hero">
+            <div class="editorial-quote">
+              <blockquote>
+                "Memory is the diary we all carry about with us."
+                <cite>— Oscar Wilde</cite>
+              </blockquote>
+            </div>
+          </div>
+          <div class="memory-grid">
+            <article class="memory-card">
+              <div class="memory-card-date">2024 · 03</div>
+              <h3 class="memory-card-title">The First Light</h3>
+              <p class="memory-card-body">There are mornings that arrive differently — softer, with longer shadows and the smell of rain still hanging in the air. This was one of them.</p>
+              <div class="memory-card-tag">dawn</div>
+            </article>
+            <article class="memory-card memory-card--wide">
+              <div class="memory-card-date">2024 · 07</div>
+              <h3 class="memory-card-title">Market Hours</h3>
+              <p class="memory-card-body">The old market was loud in a way that felt alive. Every voice layered over the next, forming something like music without melody.</p>
+              <div class="memory-card-tag">place</div>
+            </article>
+            <article class="memory-card">
+              <div class="memory-card-date">2024 · 09</div>
+              <h3 class="memory-card-title">A Face I Forgot</h3>
+              <p class="memory-card-body">Some people leave impressions without leaving names. I still think about the way they laughed.</p>
+              <div class="memory-card-tag">people</div>
+            </article>
+            <article class="memory-card memory-card--tall">
+              <div class="memory-card-date">2024 · 11</div>
+              <h3 class="memory-card-title">Winter Interior</h3>
+              <p class="memory-card-body">The apartment was cold in November. We kept the curtains closed and burned candles on the kitchen table, pretending the light was enough.</p>
+              <div class="memory-card-tag">winter</div>
+            </article>
+            <article class="memory-card">
+              <div class="memory-card-date">2025 · 01</div>
+              <h3 class="memory-card-title">Road Sound</h3>
+              <p class="memory-card-body">Eight hours of driving. No music. Just the hum of the engine and the occasional truck passing like a held breath releasing.</p>
+              <div class="memory-card-tag">motion</div>
+            </article>
+            <article class="memory-card">
+              <div class="memory-card-date">2025 · 02</div>
+              <h3 class="memory-card-title">Salt Water</h3>
+              <p class="memory-card-body">Standing at the edge where the ocean meets rock, realizing how small and necessary that smallness is.</p>
+              <div class="memory-card-tag">sea</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: TRIP -->
+      <section class="page" id="page-trip">
+        <div class="page-header">
+          <span class="page-eyebrow">Journeys</span>
+          <h2 class="page-title">Trip</h2>
+        </div>
+        <div class="trip-content">
+          <div class="trip-timeline">
+
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-body">
+                <div class="timeline-meta">
+                  <span class="timeline-date">March 2024</span>
+                  <span class="timeline-tag">Europe</span>
+                </div>
+                <h3 class="timeline-title">Prague, Czech Republic</h3>
+                <p class="timeline-desc">Three days in the old city. Cobblestones that have absorbed centuries of footsteps. The Charles Bridge at 5am when it still belongs to no one.</p>
+                <div class="timeline-stats">
+                  <span>3 days</span>
+                  <span>·</span>
+                  <span>2 rolls of film</span>
+                  <span>·</span>
+                  <span>1 lost umbrella</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-body">
+                <div class="timeline-meta">
+                  <span class="timeline-date">June 2024</span>
+                  <span class="timeline-tag">Asia</span>
+                </div>
+                <h3 class="timeline-title">Kyoto, Japan</h3>
+                <p class="timeline-desc">Rainy season. Everything dripped. The temples were patient. We ate cold ramen under an awning and watched the street fill slowly with water.</p>
+                <div class="timeline-stats">
+                  <span>7 days</span>
+                  <span>·</span>
+                  <span>14km walked daily</span>
+                  <span>·</span>
+                  <span>countless shrines</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+              </div>
+              <div class="timeline-body">
+                <div class="timeline-meta">
+                  <span class="timeline-date">October 2024</span>
+                  <span class="timeline-tag">Africa</span>
+                </div>
+                <h3 class="timeline-title">Marrakech, Morocco</h3>
+                <p class="timeline-desc">The medina absorbed us completely. We stopped trying to navigate and just let the alleyways decide. Found the best mint tea somewhere impossible to find again.</p>
+                <div class="timeline-stats">
+                  <span>5 days</span>
+                  <span>·</span>
+                  <span>12 souks explored</span>
+                  <span>·</span>
+                  <span>got lost twice</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+              </div>
+              <div class="timeline-body">
+                <div class="timeline-meta">
+                  <span class="timeline-date">February 2025</span>
+                  <span class="timeline-tag">Americas</span>
+                </div>
+                <h3 class="timeline-title">Oaxaca, Mexico</h3>
+                <p class="timeline-desc">Mezcal and mountains. The light in Oaxaca is different — golden in a way that photography struggles with. You have to just look.</p>
+                <div class="timeline-stats">
+                  <span>10 days</span>
+                  <span>·</span>
+                  <span>3 mezcal bars</span>
+                  <span>·</span>
+                  <span>endless mole</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="trip-map-placeholder">
+            <div class="map-label">Journey Map</div>
+            <svg class="map-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Simplified world outline -->
+              <rect width="400" height="200" fill="none"/>
+              <!-- Decorative grid -->
+              <g stroke="#1e1e1e" stroke-width="0.5">
+                <line x1="0" y1="50" x2="400" y2="50"/>
+                <line x1="0" y1="100" x2="400" y2="100"/>
+                <line x1="0" y1="150" x2="400" y2="150"/>
+                <line x1="100" y1="0" x2="100" y2="200"/>
+                <line x1="200" y1="0" x2="200" y2="200"/>
+                <line x1="300" y1="0" x2="300" y2="200"/>
+              </g>
+              <!-- Journey dots -->
+              <circle cx="220" cy="75" r="4" fill="#7eb8c9" opacity="0.8"/>
+              <circle cx="310" cy="65" r="4" fill="#7eb8c9" opacity="0.8"/>
+              <circle cx="200" cy="85" r="4" fill="#e8d5b0" opacity="0.8"/>
+              <circle cx="120" cy="120" r="4" fill="#7eb8c9" opacity="0.8"/>
+              <!-- Connection lines -->
+              <path d="M220,75 L310,65 L200,85 L120,120" fill="none" stroke="#7eb8c9" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.4"/>
+              <!-- Labels -->
+              <text x="224" y="72" fill="#7eb8c9" font-size="7" font-family="monospace" opacity="0.7">Prague</text>
+              <text x="314" y="62" fill="#7eb8c9" font-size="7" font-family="monospace" opacity="0.7">Kyoto</text>
+              <text x="204" y="82" fill="#e8d5b0" font-size="7" font-family="monospace" opacity="0.7">Marrakech</text>
+              <text x="124" y="117" fill="#7eb8c9" font-size="7" font-family="monospace" opacity="0.7">Oaxaca</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: DREAMS -->
+      <section class="page" id="page-dreams">
+        <div class="page-header">
+          <span class="page-eyebrow">Visions</span>
+          <h2 class="page-title">Dreams</h2>
+        </div>
+        <div class="dreams-content">
+          <div class="dreams-intro">
+            <p>These are not memories. They are the other kind — the ones that arrive uninvited between 3am and dawn, dissolving before you can write them down. These are the ones that stayed.</p>
+          </div>
+          <div class="dreams-grid">
+
+            <div class="dream-entry">
+              <div class="dream-header">
+                <span class="dream-index">001</span>
+                <span class="dream-date">recurring</span>
+              </div>
+              <h3 class="dream-title">The Glass House</h3>
+              <p class="dream-body">A house made entirely of glass, but no one inside can see out. Only in. The walls show everything that happened there — every version of every moment, overlaid.</p>
+              <div class="dream-tags">
+                <span>architecture</span><span>transparency</span><span>time</span>
+              </div>
+            </div>
+
+            <div class="dream-entry dream-entry--dark">
+              <div class="dream-header">
+                <span class="dream-index">002</span>
+                <span class="dream-date">Nov 2024</span>
+              </div>
+              <h3 class="dream-title">The Library Below</h3>
+              <p class="dream-body">An underground library where each book contains a single sound. You open them and hear: rain, a door closing, a child laughing. The shelves go down forever.</p>
+              <div class="dream-tags">
+                <span>sound</span><span>depth</span><span>memory</span>
+              </div>
+            </div>
+
+            <div class="dream-entry">
+              <div class="dream-header">
+                <span class="dream-index">003</span>
+                <span class="dream-date">Jan 2025</span>
+              </div>
+              <h3 class="dream-title">Cartography</h3>
+              <p class="dream-body">I was drawing a map of a city I had never visited but knew completely. Every street name felt correct. When I woke up, I couldn't remember any of them.</p>
+              <div class="dream-tags">
+                <span>maps</span><span>knowledge</span><span>loss</span>
+              </div>
+            </div>
+
+            <div class="dream-entry dream-entry--feature">
+              <div class="dream-header">
+                <span class="dream-index">004</span>
+                <span class="dream-date">Mar 2025</span>
+              </div>
+              <h3 class="dream-title">The Train That Circles</h3>
+              <p class="dream-body">A train on a perfect circular track. It never stops. The passengers have been on it so long they've forgotten there was ever a destination. They seem content. One of them hands me a newspaper from 1987.</p>
+              <div class="dream-tags">
+                <span>transit</span><span>time loop</span><span>acceptance</span>
+              </div>
+            </div>
+
+            <div class="dream-entry">
+              <div class="dream-header">
+                <span class="dream-index">005</span>
+                <span class="dream-date">Apr 2025</span>
+              </div>
+              <h3 class="dream-title">Tide Calendar</h3>
+              <p class="dream-body">The ocean ran on a different schedule here. Low tide came at midnight. You could walk across the seafloor under stars, the wet sand cold and impossibly smooth.</p>
+              <div class="dream-tags">
+                <span>ocean</span><span>night</span><span>solitude</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: ABOUT -->
+      <section class="page" id="page-about">
+        <div class="page-header">
+          <span class="page-eyebrow">This Place</span>
+          <h2 class="page-title">About</h2>
+        </div>
+        <div class="about-content">
+          <div class="about-left">
+            <div class="about-portrait">
+              <div class="portrait-frame">
+                <div class="portrait-placeholder">
+                  <span class="portrait-initials">◈</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-right">
+            <div class="about-text">
+              <p class="about-lead">This is an archive. A place where photographs live alongside the words and feelings that surrounded the moment of taking them.</p>
+              <p>Not a portfolio. Not a social feed. Something quieter — a record for the self, shared with whoever finds it.</p>
+              <p>The images here were made with a camera, sometimes a phone, sometimes film. They were not optimized. They were kept because something about them stayed.</p>
+            </div>
+            <div class="about-details">
+              <div class="detail-row">
+                <span class="detail-label">Based in</span>
+                <span class="detail-val">Ulaanbaatar, Mongolia</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Shooting since</span>
+                <span class="detail-val">2018</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Preferred light</span>
+                <span class="detail-val">Golden hour, overcast</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Archive started</span>
+                <span class="detail-val">2024</span>
+              </div>
+            </div>
+            <div class="about-note">
+              <span class="about-note-label">MUSIC NOTE</span>
+              <p>Drop any <strong>.mp3</strong> or <strong>.ogg</strong> file named <code>music/ambient.mp3</code> into your project folder and it will autoplay on load.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SLIDESHOW OVERLAY
+  ═══════════════════════════════════════ -->
   <div class="slideshow-overlay" id="slideshow-overlay" aria-hidden="true">
     <div class="slideshow-hud">
       <button class="back-btn" id="back-btn" aria-label="Close slideshow">
         <span class="back-arrow">←</span>
-        <span class="back-text">Буцах</span>
+        <span class="back-text">BACK</span>
       </button>
       <div class="slideshow-meta">
-        <span class="folder-name" id="slide-folder-name"></span>
+        <span class="slide-folder-name" id="slide-folder-name"></span>
         <span class="slide-counter" id="slide-counter">01 / 01</span>
       </div>
       <div class="slideshow-controls-right">
         <button class="control-btn" id="auto-btn" title="Auto play">▶</button>
       </div>
     </div>
-
-    <!-- Scan line effect -->
     <div class="scanlines"></div>
-
-    <!-- Main image stage -->
     <div class="slide-stage" id="slide-stage">
       <div class="slide-frame">
         <img class="slide-img" id="slide-img" src="" alt="" />
         <div class="slide-glitch" id="slide-glitch"></div>
       </div>
     </div>
-
-    <!-- Thumbnail strip -->
     <div class="thumb-strip-wrapper">
       <div class="thumb-strip" id="thumb-strip"></div>
     </div>
-
-    <!-- Nav arrows -->
     <button class="nav-arrow nav-prev" id="nav-prev" aria-label="Previous">&#8592;</button>
     <button class="nav-arrow nav-next" id="nav-next" aria-label="Next">&#8594;</button>
   </div>
 
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
   <script src="js/gallery.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
