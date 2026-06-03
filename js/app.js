@@ -83,14 +83,26 @@
   audio.src    = TRACK_PATH;
 
   audio.addEventListener('canplay', () => {
-    trackLabel.textContent = TRACK_NAME;
-    // Try autoplay (browsers may block until interaction)
-    audio.play().then(() => {
-      setPlaying(true);
-    }).catch(() => {
-      setPlaying(false);
-    });
+  trackLabel.textContent = TRACK_NAME;
+  // Try immediate autoplay first
+  audio.play().then(() => {
+    setPlaying(true);
+  }).catch(() => {
+    // Blocked — wait for first user interaction anywhere on page
+    setPlaying(false);
+    const startOnInteraction = () => {
+      audio.play().then(() => {
+        setPlaying(true);
+        document.removeEventListener('click', startOnInteraction);
+        document.removeEventListener('keydown', startOnInteraction);
+        document.removeEventListener('touchstart', startOnInteraction);
+      });
+    };
+    document.addEventListener('click', startOnInteraction);
+    document.addEventListener('keydown', startOnInteraction);
+    document.addEventListener('touchstart', startOnInteraction);
   });
+});
 
   audio.addEventListener('error', () => {
     trackLabel.textContent = '— drop music/ambient.mp3 —';
