@@ -30,7 +30,7 @@
   const navPrev      = document.getElementById('nav-prev');
   const navNext      = document.getElementById('nav-next');
   const autoBtn      = document.getElementById('auto-btn');
-  const folderCount  = document.getElementById('folder-count');
+  const folderCount  = document.getElementById('folder-count'); // optional
 
   // ─── Bootstrap ────────────────────────────────────────────────────────────
   async function init() {
@@ -38,7 +38,7 @@
     try {
       const rootManifest = await fetchJSON('manifest.json');
       const folderNames = rootManifest.folders || [];
-      folderCount.textContent = `${folderNames.length} FOLDERS`;
+      if (folderCount) folderCount.textContent = `${folderNames.length} FOLDERS`;
 
       const loaded = await Promise.all(
         folderNames.map(name => loadFolder(name))
