@@ -277,6 +277,11 @@
   }
 
   // ─── Start ────────────────────────────────────────────────────────────────
+  // Wait for DOM to be fully painted
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
   init();
+}
 
 })();
