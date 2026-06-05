@@ -22,6 +22,7 @@
   const container    = document.getElementById('masonry-container');
   const overlay      = document.getElementById('slideshow-overlay');
   const backBtn      = document.getElementById('back-btn');
+  const closeBtn     = document.getElementById('close-btn');
   const slideImg     = document.getElementById('slide-img');
   const slideGlitch  = document.getElementById('slide-glitch');
   const thumbStrip   = document.getElementById('thumb-strip');
@@ -242,6 +243,7 @@
 
   // ─── Events ───────────────────────────────────────────────────────────────
   backBtn.addEventListener('click', closeSlideshow);
+  closeBtn.addEventListener('click', closeSlideshow);
   navPrev.addEventListener('click', () => { stopAutoPlay(); prevSlide(); });
   navNext.addEventListener('click', () => { stopAutoPlay(); nextSlide(); });
   autoBtn.addEventListener('click', toggleAutoPlay);
