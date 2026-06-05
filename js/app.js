@@ -139,4 +139,14 @@
     audio.volume = parseFloat(volSlider.value);
   });
 
+  // ─── Trip accordion ──────────────────────────────────────────────────────────
+  document.querySelectorAll('.timeline-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const item = header.closest('.timeline-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.timeline-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
 })();
