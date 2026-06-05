@@ -275,8 +275,22 @@
     return res.json();
   }
 
+  // ─── Trip album stacks → open slideshow ──────────────────────────────────
+  document.querySelectorAll('.trip-album-stack[data-folder]').forEach(stack => {
+    stack.addEventListener('click', async e => {
+      e.stopPropagation(); // don't trigger the trip accordion toggle
+      const folder = await loadFolder(stack.dataset.folder);
+      if (folder && folder.images.length > 0) {
+        openSlideshow(folder);
+      } else {
+        // Folder exists but has no photos yet — visual pulse feedback
+        stack.classList.add('album-empty-shake');
+        setTimeout(() => stack.classList.remove('album-empty-shake'), 600);
+      }
+    });
+  });
+
   // ─── Start ────────────────────────────────────────────────────────────────
-  // Wait for DOM to be fully painted
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
