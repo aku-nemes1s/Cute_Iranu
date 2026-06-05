@@ -198,10 +198,9 @@
     // Fade out → swap → fade in
     slideImg.classList.remove('visible');
     setTimeout(() => {
-      slideImg.src = images[index];
       slideImg.onload = () => slideImg.classList.add('visible');
-      // Fallback for cached images
-      if (slideImg.complete) slideImg.classList.add('visible');
+      slideImg.src = images[index];
+      if (slideImg.complete && slideImg.naturalWidth > 0) slideImg.classList.add('visible');
     }, 200);
   }
 
