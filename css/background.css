@@ -45,8 +45,7 @@
 
 /* Everything else stacks above */
 .top-bar,
-.layout,
-.slideshow-overlay {
+.layout {
   position: relative;
   z-index: 10;
 }
@@ -102,9 +101,11 @@ body {
   background: rgba(10, 20, 16, 0.65) !important;
 }
 
-/* Slideshow overlay stays solid black */
+/* Slideshow overlay — semi-transparent lightbox */
 .slideshow-overlay {
-  background: rgba(0, 0, 0, 0.97) !important;
+  background: rgba(0, 0, 0, 0.82) !important;
+  backdrop-filter: blur(14px) saturate(0.8) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(0.8) !important;
 }
 
 /* Scrollbar tint */
