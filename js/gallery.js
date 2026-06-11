@@ -23,6 +23,7 @@
   const overlay      = document.getElementById('slideshow-overlay');
   const closeBtn     = document.getElementById('close-btn');
   const slideImg     = document.getElementById('slide-img');
+  const slideVideo   = document.getElementById('slide-video');
   const slideGlitch  = document.getElementById('slide-glitch');
   const thumbStrip   = document.getElementById('thumb-strip');
   const counter      = document.getElementById('slide-counter');
@@ -152,6 +153,8 @@
     overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     stopAutoPlay();
+    slideVideo.pause();
+    slideVideo.src = '';
   }
 
   function buildThumbs(images) {
@@ -159,11 +162,17 @@
     images.forEach((src, i) => {
       const item = document.createElement('div');
       item.className = 'thumb-item' + (i === 0 ? ' active' : '');
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = `Photo ${i + 1}`;
-      img.loading = 'lazy';
-      item.appendChild(img);
+      const isVideo = /\.(mp4|webm|mov|m4v)$/i.test(src);
+      if (isVideo) {
+        item.classList.add('thumb-video');
+        item.innerHTML = '<span class="thumb-play-icon">▶</span>';
+      } else {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Photo ${i + 1}`;
+        img.loading = 'lazy';
+        item.appendChild(img);
+      }
       item.addEventListener('click', () => loadSlide(i, 'thumb'));
       thumbStrip.appendChild(item);
     });
@@ -194,13 +203,33 @@
     // Trigger glitch on transition
     triggerGlitch();
 
-    // Fade out → swap → fade in
-    slideImg.classList.remove('visible');
-    setTimeout(() => {
-      slideImg.onload = () => slideImg.classList.add('visible');
-      slideImg.src = images[index];
-      if (slideImg.complete && slideImg.naturalWidth > 0) slideImg.classList.add('visible');
-    }, 200);
+    const src = images[index];
+    const isVideo = /\.(mp4|webm|mov|m4v)$/i.test(src);
+
+    if (isVideo) {
+      slideImg.classList.remove('visible');
+      slideVideo.classList.remove('visible');
+      setTimeout(() => {
+        slideImg.style.display = 'none';
+        slideVideo.style.display = 'block';
+        slideVideo.src = src;
+        slideVideo.load();
+        slideVideo.classList.add('visible');
+      }, 200);
+    } else {
+      slideVideo.pause();
+      slideVideo.src = '';
+      slideVideo.style.display = 'none';
+      slideVideo.classList.remove('visible');
+      // Fade out → swap → fade in
+      slideImg.style.display = '';
+      slideImg.classList.remove('visible');
+      setTimeout(() => {
+        slideImg.onload = () => slideImg.classList.add('visible');
+        slideImg.src = src;
+        if (slideImg.complete && slideImg.naturalWidth > 0) slideImg.classList.add('visible');
+      }, 200);
+    }
   }
 
   function triggerGlitch() {
